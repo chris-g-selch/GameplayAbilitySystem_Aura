@@ -40,6 +40,13 @@ void AAuraPlayerController::SetupInputComponent()
     EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
 }
 
+void AAuraPlayerController::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+    CursorTrace();
+    
+}
+
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 {
     const FVector2d inputAxisVector = InputActionValue.Get<FVector2d>();
@@ -54,4 +61,23 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
         controlledPawn->AddMovementInput(forwardDirection, inputAxisVector.X);
         controlledPawn->AddMovementInput(rightDirection, inputAxisVector.Y);
     }
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+    FHitResult cursorHit;
+    GetHitResultUnderCursor(ECC_Visibility, false, cursorHit);
+    if(!cursorHit.bBlockingHit) return;
+    
+    LastActor = ThisActor;
+    ThisActor = Cast<IEnemyInterface>(cursorHit.GetActor());
+
+    if(ThisActor == LastActor) return; //Work was done last frame
+
+    if(LastActor)
+        LastActor->UnHighlightActor();
+    
+    if(ThisActor)
+        ThisActor->HighlightActor();
+    
 }
