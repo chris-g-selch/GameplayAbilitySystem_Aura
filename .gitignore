@@ -3,10 +3,11 @@ DerivedDataCache
 Intermediate
 Saved
 Build
-Plugins\Developer\RiderLink
+Plugins
 
 .vscode
 .vs
+.idea
 *.VC.db
 *.opensdf
 *.opendb
