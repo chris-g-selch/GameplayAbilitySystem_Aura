@@ -3,16 +3,24 @@
 
 #include "Character/AuraEnemy.h"
 
+#include "NavigationSystemTypes.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "AbilitySystem/AuraAttributeSet.h"
 #include "Aura/Aura.h"
 
-//Required Post Processing Volume
-//Post Processing Highlight material
-//For this to work
 
 AAuraEnemy::AAuraEnemy()
 {
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("Ability System Component");
+	AbilitySystemComponent->SetIsReplicated(true);
+	
+	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("Attribute Set");
 }
+
+//Required Post Processing Volume
+//Post Processing Highlight material
+//For this to work
 
 void AAuraEnemy::HighlightActor()
 {

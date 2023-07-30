@@ -6,7 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-
+#include "Net/UnrealNetwork.h"
 AAuraCharacter::AAuraCharacter()
 {
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("Spring Arm");
